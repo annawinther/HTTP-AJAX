@@ -20,7 +20,7 @@ class App extends React.Component {
 
     getFriends = () => {
       axios
-        .get('http://localhost:5000/friends/')
+        .get('http://localhost:5000/friends')
         .then(response => {
           this.setState({ friends: response.data });
         })
