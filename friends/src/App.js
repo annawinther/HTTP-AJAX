@@ -49,17 +49,16 @@ class App extends React.Component {
     render() {
       return (
         <div className="App">
-        {this.state.friends.map(friend => (
+         <header >
+            <h1>Friends List</h1>
+            {this.state.friends.map(friend => (
             <Friends 
             key={friend.id}
             friend={friend} 
-            />
-            ))
-          };
-          {/* <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h1 className="App-title">Friends List</h1>
-          </header>
+           />
+            ))};
+        </header>
+       
           <input
             type="text"
             onChange={this.handelTextInput}
@@ -82,12 +81,6 @@ class App extends React.Component {
             value={this.state.email}
           />
           <button onClick={this.saveFriendData}>Add Friend</button>
-          {this.state.friends.map(friend => (
-            <Friends 
-            friend={friend} 
-            getFriends={this.getFriends} />
-            ))
-          }; */}
 
         </div>
       )
