@@ -19,6 +19,7 @@ class Friends extends React.Component {
         this.setState({ showUpdateFriend: !this.state.showUpdateFriend });
     }
 
+    de
 
 
     fetchFriendWithNativeFetch = () => {
