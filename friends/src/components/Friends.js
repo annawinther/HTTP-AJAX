@@ -19,28 +19,6 @@ class Friends extends React.Component {
         this.setState({ showUpdateFriend: !this.state.showUpdateFriend });
     }
 
-    de
-
-
-    fetchFriendWithNativeFetch = () => {
-        //spinner on 
-        this.setState( { spinner: true });
-
-        fetch('http://localhost:5000/friends')
-            .then(response => {
-                return response.json();
-            })
-            .then(parsedData => {
-                this.setState({ friend: parsedData });
-            })
-            .catch(error => {
-                this.setState({ errorMessage: error.message });
-            })
-            .finally(() => {
-                this.setState({ spinner: false });
-            }) 
-
-    }
 }
 
 export default Friends;
