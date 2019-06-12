@@ -1,11 +1,25 @@
 import React from 'react';
+import axios from 'axios';
 
-export default class Friends extends React.Component {
-    state = {
-        friend: null,
-        errorMessage: '',
-        spinner: false
+class Friends extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            showUpdateFriend: false,
+            name: '',
+            age: '',
+            email: '',
+        };   
     }
+    handelTextInput = event => {
+     this.setState({ [event.target.name]: event.target.value });
+    };
+
+    showUpdateFriend = () => {
+        this.setState({ showUpdateFriend: !this.state.showUpdateFriend });
+    }
+
+
 
     fetchFriendWithNativeFetch = () => {
         //spinner on 
@@ -27,3 +41,5 @@ export default class Friends extends React.Component {
 
     }
 }
+
+export default Friends;
