@@ -9,6 +9,7 @@ class App extends React.Component {
     constructor(props){
       super(props);
       this.state = {
+        errorMessage: '',
         friends: [],
       }
     }
@@ -21,11 +22,10 @@ class App extends React.Component {
       axios
         .get('http://localhost:5000/friends/')
         .then(response => {
-          console.log(response.data);
           this.setState({ friends: response.data });
         })
         .catch(error => {
-          console.log(error);
+          this.setState({ errorMessage: error.message })
         });
     };
 
@@ -38,19 +38,25 @@ class App extends React.Component {
       axios
         .post('http://localhost:5000/friends/create', friend)
         .then(response => {
-          console.log(response);
           this.getFriends();
         })
         .catch(error => {
-          console.log(error);
+          this.setState({ errorMessage: error.message})
         });
-      this.setState({name: "", age: "", email: "" });
+      this.setState({ name: "", age: "", email: "" });
     };
 
     render() {
       return (
         <div className="App">
-          <header className="App-header">
+        {this.state.friends.map(friend => (
+            <Friends 
+            key={friend.id}
+            friend={friend} 
+            />
+            ))
+          };
+          {/* <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
             <h1 className="App-title">Friends List</h1>
           </header>
@@ -81,31 +87,11 @@ class App extends React.Component {
             friend={friend} 
             getFriends={this.getFriends} />
             ))
-          };
+          }; */}
 
         </div>
       )
     }
 }
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
 
 export default App;
