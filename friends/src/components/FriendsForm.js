@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-
 const StyledForm = styled.div`
     display: flex;
     flex-direction: column;
@@ -10,7 +9,9 @@ const StyledForm = styled.div`
     margin-right: 25%;
     margin-top: 20px;;
 `;
-function FriendsForm ({ handleTextInput, saveFriendData }) {
+
+
+function FriendsForm ({ handleTextInput, saveFriendData, name, email, age }) {
     return (
         <StyledForm>
         <input
@@ -18,24 +19,23 @@ function FriendsForm ({ handleTextInput, saveFriendData }) {
             onChange={handleTextInput}
             placeholder="Name"
             name="name"
-            // value={this.state.name}
+            value={name}
         />
         <input
-            type="text"
+            type="number"
             onChange={handleTextInput}
             placeholder="Age"
             name="age"
-            // value={this.state.age}
+            value={age}
         />
         <input
-            type="text"
+            type="email"
             onChange={handleTextInput}
             placeholder="Email"
             name="email"
-            // value={this.state.email}
+            value={email}
         />
     <button onClick={saveFriendData}>Add Friend</button>
-
 </StyledForm>
 
     )
