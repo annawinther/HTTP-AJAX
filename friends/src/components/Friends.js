@@ -1,19 +1,42 @@
 import React from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
+
+
+const StyledFriendsList = styled.div`
+    border: 1px solid black;
+    margin-top: 20px;
+    margin-left: 25%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    /* text-align: center;
+    align-content: center;
+    align-items: center; */
+`;
 
 class Friends extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            showUpdateFriend: false,
-            name: '',
-            age: '',
-            email: '',
-        };   
+
+    render(){
+        const { friend } = this.props;
+        // console.log(friend);
+        return (
+            //  friends.map(friend => {
+            //      return (
+                <StyledFriendsList>
+                    <h3>Name: {friend.name}</h3>
+                    <p>Age: {friend.age}</p>
+                    <p>Email: {friend.email}</p>
+                </StyledFriendsList>
+                     
+            //      )
+            //  })
+        )
+
     }
-    handelTextInput = event => {
-     this.setState({ [event.target.name]: event.target.value });
-    };
+}
+
+export default Friends;
 
     // showUpdateFriend = () => {
     //     this.setState({ showUpdateFriend: !this.state.showUpdateFriend });
@@ -102,3 +125,57 @@ class Friends extends React.Component {
 
 
 export default Friends;
+
+//  export default function Friends ( props ) {
+//     const { friend } = this.props;
+//    return (
+//         friends.map(friend => {
+//             return (
+//                 <p>
+//                     Name: {friend.name}<br />
+//                     Age: {friend.age}<br />
+//                     Email: {friend.email}
+//                 </p>
+//             )
+//         })
+//      )
+// }   
+  
+    // showUpdateFriend = () => {
+    //     this.setState({ showUpdateFriend: !this.state.showUpdateFriend });
+    // }
+
+    // deleteFriend = (friendId) => {
+    //     axios
+    //         .delete(`http://localhost:5000/friends/${friendId}`)
+    //         .then(response =>{
+    //             this.props.getFriends();
+    //         })
+    //         .catch(error => {
+    //             console.log(error);
+    //         });
+    // };
+
+    // updateFriend = (friendId) => {
+    //     const friend = {};
+    //     if (this.state.name !== '') {
+    //         friend.name = this.state.name;
+    //     }
+    //     if (this.state.email !== '') {
+    //         friend.email = this.state.email;
+    //     }
+    //     axios
+    //         .put(`http://localhost:5000/friends/${friendId}`, friend)
+    //         .then(response => {
+    //             this.setState({ 
+    //                 showUpdateFriend: false, 
+    //                 name: '', 
+    //                 age: '',
+    //                 email: '',
+    //              });
+    //         this.props.getFriends();
+    //         })
+    //         .catch(error => {
+    //             console.log(error)
+    //      });
+    // };
