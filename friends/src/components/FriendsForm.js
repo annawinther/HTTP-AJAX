@@ -1,8 +1,18 @@
 import React from 'react';
+import styled from 'styled-components';
 
+
+const StyledForm = styled.div`
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-top: 20px;;
+`;
 function FriendsForm ({ handleTextInput, saveFriendData }) {
     return (
-        <form>
+        <StyledForm>
         <input
             type="text"
             onChange={handleTextInput}
@@ -26,7 +36,7 @@ function FriendsForm ({ handleTextInput, saveFriendData }) {
         />
     <button onClick={saveFriendData}>Add Friend</button>
 
-</form>
+</StyledForm>
 
     )
 }
