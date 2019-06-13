@@ -1,90 +1,77 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import axios from 'axios';
-import Friends from './components/Friends';
+// import axios from 'axios';
 
+class Friends extends React.Component {
 
-class App extends React.Component {
-    constructor(props){
-      super(props);
-      this.state = {
-        errorMessage: '',
-        friends: [],
-      }
-    }
+    render(){
+        const { friend } = this.props;
+        console.log(friend);
+        return (
+            //  friends.map(friend => {
+            //      return (
+                     <p>
+                         Name: {friend.name}<br />
+                         Age: {friend.age}<br />
+                         Email: {friend.email}
+                     </p>
+            //      )
+            //  })
+        )
 
-    componentDidMount() {
-      this.getFriends();
-    }
-
-    getFriends = () => {
-      axios
-        .get('http://localhost:5000/friends')
-        .then(response => {
-          this.setState({ friends: response.data });
-        })
-        .catch(error => {
-          this.setState({ errorMessage: error.message })
-        });
-    };
-
-    handelTextInput = event => {
-      this.setState({ [event.target.name]: event.target.value });
-    }
-
-    saveFriendData = () => {
-      const friend = {name: this.state.name, age: this.state.age, email: this.state.email };
-      axios
-        .post('http://localhost:5000/friends/create', friend)
-        .then(response => {
-          this.getFriends();
-        })
-        .catch(error => {
-          this.setState({ errorMessage: error.message})
-        });
-      this.setState({ name: "", age: "", email: "" });
-    };
-
-    render() {
-      return (
-        <div className="App">
-         <header >
-            <h1>Friends List</h1>
-            {this.state.friends.map(friend => (
-            <Friends 
-            key={friend.id}
-            friend={friend} 
-           />
-            ))};
-        </header>
-       
-          <input
-            type="text"
-            onChange={this.handelTextInput}
-            placeholder="Name"
-            name="name"
-            value={this.state.name}
-          />
-           <input
-            type="text"
-            onChange={this.handelTextInput}
-            placeholder="Age"
-            name="age"
-            value={this.state.age}
-          />
-           <input
-            type="text"
-            onChange={this.handelTextInput}
-            placeholder="Email"
-            name="email"
-            value={this.state.email}
-          />
-          <button onClick={this.saveFriendData}>Add Friend</button>
-
-        </div>
-      )
     }
 }
 
-export default App;
+//  export default function Friends ( props ) {
+//     const { friend } = this.props;
+//    return (
+//         friends.map(friend => {
+//             return (
+//                 <p>
+//                     Name: {friend.name}<br />
+//                     Age: {friend.age}<br />
+//                     Email: {friend.email}
+//                 </p>
+//             )
+//         })
+//      )
+// }   
+  export default Friends;
+
+    // showUpdateFriend = () => {
+    //     this.setState({ showUpdateFriend: !this.state.showUpdateFriend });
+    // }
+
+    // deleteFriend = (friendId) => {
+    //     axios
+    //         .delete(`http://localhost:5000/friends/${friendId}`)
+    //         .then(response =>{
+    //             this.props.getFriends();
+    //         })
+    //         .catch(error => {
+    //             console.log(error);
+    //         });
+    // };
+
+    // updateFriend = (friendId) => {
+    //     const friend = {};
+    //     if (this.state.name !== '') {
+    //         friend.name = this.state.name;
+    //     }
+    //     if (this.state.email !== '') {
+    //         friend.email = this.state.email;
+    //     }
+    //     axios
+    //         .put(`http://localhost:5000/friends/${friendId}`, friend)
+    //         .then(response => {
+    //             this.setState({ 
+    //                 showUpdateFriend: false, 
+    //                 name: '', 
+    //                 age: '',
+    //                 email: '',
+    //              });
+    //         this.props.getFriends();
+    //         })
+    //         .catch(error => {
+    //             console.log(error)
+    //      });
+    // };
