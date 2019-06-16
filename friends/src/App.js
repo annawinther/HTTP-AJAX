@@ -1,9 +1,10 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
 import Friends from './components/Friends';
+import FriendsForm from './components/FriendsForm';
 
+const friendsApi = 'http://localhost:5000/friends';
 
 class App extends React.Component {
     constructor(props){
@@ -11,8 +12,13 @@ class App extends React.Component {
       this.state = {
         errorMessage: '',
         friends: [],
+        name: '',
+        age: 0,
+        email: '',
       }
     }
+
+  idToGetInput = React.createRef();
 
     componentDidMount() {
       this.getFriends();
@@ -20,69 +26,71 @@ class App extends React.Component {
 
     getFriends = () => {
       axios
-        .get('http://localhost:5000/friends')
+        .get(friendsApi)
         .then(response => {
           this.setState({ friends: response.data });
         })
         .catch(error => {
-          this.setState({ errorMessage: error.message })
+          this.setState({ errorMessage: error.message });
         });
     };
 
-    handelTextInput = event => {
+    saveFriendData = (event) => {
+      event.preventDefault();
+      const { name, age, email } = this.state;
+
+      if (name !== "" && age !== 0 && email !== ""){
+        const newFriend = {
+          name: this.state.name, 
+          age: this.state.age, 
+          email: this.state.email 
+        };
+        axios
+          .post(friendsApi, newFriend)
+          .then(response => 
+            this.setState({ friends: response.data, name: '', email: '', age: 0 })
+          );
+      };
+    }
+     
+   
+    deleteFriend = (id) => {
+      // const id = this.idToGetInput.current.value;
+      axios
+      .delete(`${friendsApi}/${id}`)
+      .then(() => {
+        this.getFriends();
+      })
+    }
+    
+
+    handleTextInput = event => {
+      event.preventDefault();
       this.setState({ [event.target.name]: event.target.value });
     }
 
-    saveFriendData = () => {
-      const friend = {name: this.state.name, age: this.state.age, email: this.state.email };
-      axios
-        .post('http://localhost:5000/friends/create', friend)
-        .then(response => {
-          this.getFriends();
-        })
-        .catch(error => {
-          this.setState({ errorMessage: error.message})
-        });
-      this.setState({ name: "", age: "", email: "" });
-    };
-
+  
     render() {
+      const { name, age, email } = this.state;
       return (
         <div className="App">
-         <header >
+         <div >
             <h1>Friends List</h1>
-            {this.state.friends.map(friend => (
             <Friends 
-            key={friend.id}
-            friend={friend} 
+            deleteFriend={this.deleteFriend}
+            friends={this.state.friends}
            />
-            ))};
-        </header>
-       
-          <input
-            type="text"
-            onChange={this.handelTextInput}
-            placeholder="Name"
-            name="name"
-            value={this.state.name}
-          />
-           <input
-            type="text"
-            onChange={this.handelTextInput}
-            placeholder="Age"
-            name="age"
-            value={this.state.age}
-          />
-           <input
-            type="text"
-            onChange={this.handelTextInput}
-            placeholder="Email"
-            name="email"
-            value={this.state.email}
-          />
-          <button onClick={this.saveFriendData}>Add Friend</button>
-
+         <FriendsForm 
+            name={name}
+            age={age}
+            email={email}
+            handleTextInput={this.handleTextInput}
+            saveFriendData={this.saveFriendData}
+           
+         />
+          </div>
         </div>
+       
       )
     }
 }
